@@ -1,15 +1,25 @@
-input.onButtonPressed(Button.A, function () {
-    if (led2.get(LedSpriteProperty.X) == 4) {
-        led2.set(LedSpriteProperty.X, 0)
-    } else {
-        led2.change(LedSpriteProperty.X, 1)
-    }
+let led2: game.LedSprite = null
+let imposible: game.LedSprite = null
+let score = 0
+input.onPinPressed(TouchPin.P0, function () {
+    led2.change(LedSpriteProperty.Y, -1)
 })
-input.onButtonPressed(Button.AB, function () {
+function nivel4 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 4))
+}
+function nivel3 () {
+    imposible = game.createSprite(randint(0, 4), randint(0, 3))
+}
+input.onButtonPressed(Button.A, function () {
+    led2.change(LedSpriteProperty.X, 1)
+})
+function nivel2 () {
+    imposible = game.createSprite(randint(0, 4), randint(0, 2))
+}
+input.onButtonPressed(Button.AB, function () {
     if (led2.get(LedSpriteProperty.X) == imposible.get(LedSpriteProperty.X) && led2.get(LedSpriteProperty.Y) == imposible.get(LedSpriteProperty.Y)) {
         basic.clearScreen()
-        basic.showString("Felicidades eres parte del 4%")
+        basic.showString("Felicidades")
         game.addScore(1)
         basic.showNumber(score)
     } else {
@@ -18,25 +28,24 @@ input.onButtonPressed(Button.AB, function () {
     }
 })
 input.onButtonPressed(Button.B, function () {
-    if (led2.get(LedSpriteProperty.Y) == 4) {
-        led2.set(LedSpriteProperty.Y, 0)
-    } else {
-        led2.change(LedSpriteProperty.Y, 1)
-    }
+    led2.change(LedSpriteProperty.Y, 1)
 })
-let imposible: game.LedSprite = null
-let led2: game.LedSprite = null
-let score = 0
-score = game.score()
-game.setScore(0)
-for (let index = 0; index <= 4; index++) {
-    for (let Indey = 0; Indey <= 4; Indey++) {
-        led.plot(Indey, index)
-        basic.pause(50)
+input.onPinPressed(TouchPin.P1, function () {
+    led2.change(LedSpriteProperty.X, -1)
+})
+input.onLogoEvent(TouchButtonEvent.Touched, function () {
+    score = game.score()
+    game.setScore(0)
+    for (let index = 0; index <= 4; index++) {
+        for (let Indey = 0; Indey <= 4; Indey++) {
+            led.plot(Indey, index)
+            basic.pause(50)
+        }
     }
+    nivel1()
+    led2 = game.createSprite(0, 0)
+    basic.clearScreen()
+})
+function nivel1 () {
+    imposible = game.createSprite(randint(0, 4), randint(0, 1))
 }
-basic.clearScreen()
-led2 = game.createSprite(2, 2)
-basic.forever(function () {
-	
-})
