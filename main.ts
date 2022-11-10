@@ -6,20 +6,26 @@ input.onPinPressed(TouchPin.P0, function () {
 })
 function nivel4 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 4))
+    basic.pause(100)
+    imposible.change(LedSpriteProperty.Brightness, -255)
 }
 function nivel3 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 3))
+    basic.pause(200)
+    imposible.change(LedSpriteProperty.Brightness, -255)
 }
 input.onButtonPressed(Button.A, function () {
     led2.change(LedSpriteProperty.X, 1)
 })
 function nivel2 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 2))
+    basic.pause(300)
+    imposible.change(LedSpriteProperty.Brightness, -255)
 }
 input.onButtonPressed(Button.AB, function () {
     if (led2.get(LedSpriteProperty.X) == imposible.get(LedSpriteProperty.X) && led2.get(LedSpriteProperty.Y) == imposible.get(LedSpriteProperty.Y)) {
         basic.clearScreen()
-        basic.showString("Felicidades")
+        basic.showString("Nivel 2")
         game.addScore(1)
         basic.showNumber(score)
     } else {
@@ -48,4 +54,6 @@ input.onLogoEvent(TouchButtonEvent.Touched, function () {
 })
 function nivel1 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 1))
+    basic.pause(400)
+    imposible.change(LedSpriteProperty.Brightness, -255)
 }
