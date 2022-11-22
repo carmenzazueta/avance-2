@@ -1,12 +1,16 @@
 let led2: game.LedSprite = null
 let imposible: game.LedSprite = null
-let score = 0
 input.onPinPressed(TouchPin.P0, function () {
     led2.change(LedSpriteProperty.Y, -1)
 })
-function nivel4 () {
+function nivel8 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 4))
-    basic.pause(100)
+    basic.pause(75)
+    imposible.change(LedSpriteProperty.Brightness, -255)
+}
+function nivel4 () {
+    imposible = game.createSprite(randint(0, 1), randint(0, 4))
+    basic.pause(400)
     imposible.change(LedSpriteProperty.Brightness, -255)
 }
 function nivel3 () {
@@ -14,20 +18,61 @@ function nivel3 () {
     basic.pause(200)
     imposible.change(LedSpriteProperty.Brightness, -255)
 }
+function nivel7 () {
+    imposible = game.createSprite(randint(0, 4), randint(0, 4))
+    basic.pause(100)
+    imposible.change(LedSpriteProperty.Brightness, -255)
+}
 input.onButtonPressed(Button.A, function () {
     led2.change(LedSpriteProperty.X, 1)
 })
+function nivel6 () {
+    imposible = game.createSprite(randint(0, 3), randint(0, 4))
+    basic.pause(200)
+    imposible.change(LedSpriteProperty.Brightness, -255)
+}
 function nivel2 () {
     imposible = game.createSprite(randint(0, 4), randint(0, 2))
+    basic.pause(300)
+    imposible.change(LedSpriteProperty.Brightness, -255)
+}
+function nivel5 () {
+    imposible = game.createSprite(randint(0, 2), randint(0, 4))
     basic.pause(300)
     imposible.change(LedSpriteProperty.Brightness, -255)
 }
 input.onButtonPressed(Button.AB, function () {
     if (led2.get(LedSpriteProperty.X) == imposible.get(LedSpriteProperty.X) && led2.get(LedSpriteProperty.Y) == imposible.get(LedSpriteProperty.Y)) {
         basic.clearScreen()
-        basic.showString("Nivel 2")
+        basic.showString("Level up")
         game.addScore(1)
-        basic.showNumber(score)
+        basic.pause(100)
+        basic.showNumber(game.score())
+        if (game.score() == 1) {
+            nivel2()
+        }
+        if (game.score() == 2) {
+            nivel3()
+        }
+        if (game.score() == 3) {
+            nivel4()
+        }
+        if (game.score() == 4) {
+            nivel5()
+        }
+        if (game.score() == 5) {
+            nivel6()
+        }
+        if (game.score() == 6) {
+            nivel7()
+        }
+        if (game.score() == 7) {
+            nivel8()
+        }
+        if (game.score() == 8) {
+            basic.showString("Congrats!")
+            game.gameOver()
+        }
     } else {
         basic.pause(2000)
         game.gameOver()
@@ -40,7 +85,6 @@ input.onPinPressed(TouchPin.P1, function () {
     led2.change(LedSpriteProperty.X, -1)
 })
 input.onLogoEvent(TouchButtonEvent.Touched, function () {
-    score = game.score()
     game.setScore(0)
     for (let index = 0; index <= 4; index++) {
         for (let Indey = 0; Indey <= 4; Indey++) {
